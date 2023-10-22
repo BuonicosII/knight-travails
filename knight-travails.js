@@ -1,5 +1,38 @@
 //Start from scratch
 
+//function to get the array of possible moves
+function getMoves(square) {
+    let returnArray = [];
+    let possibleArray = [[2, 1], [1, 2], [-1, 2], [-2, 1], [-2, -1], [-2, -1], [2, -1], [1, -2]]
+
+    for (const move of possibleArray) {
+        if (square[0] + move[0] >= 0 && 
+            square[0] + move[0] <= 7 &&
+            square[1] + move[1] >= 0 &&
+            square[1] + move[1] <= 7) {
+                returnArray.push([square[0] + move[0], square[1] + move[1]])
+            }
+    }
+    return returnArray
+};
+
+
+//function to create a chessboard with the knight moves
+function createBoard () {
+    const board = new Map();
+
+    for (let x = 0; x <= 7; x++ ) {
+        for (let y = 0; y <= 7; y++) {
+            board.set(`[${x}, ${y}]`, getMoves([x, y]))
+        }
+    }
+
+    return board
+}
+
+const chessBoard = createBoard();
+
+console.log(chessBoard)
 
 
 /*
