@@ -1,3 +1,8 @@
+//Start from scratch
+
+
+
+/*
 function knightMoves(from, to) {
 
     //function to return all the possible squares the knight can move to
@@ -24,9 +29,36 @@ function knightMoves(from, to) {
     }
 
     //recursive helperFunction 
-    function findShortestPath(from, to)
+    function findShortestPath(from, to, visited = []) {
+        let path = []
+        if (findToSquare(from, to)) {
+            path.push(from)
+            return path;
+        } else {
+            let possibleMoves = getMoves(from);
+            let shortestPath = undefined;
 
+            for (const move of possibleMoves) {
+                if (!visited.includes(move)) {
+                    visited.push(move);
+                    let path = findShortestPath(move, to, visited);
 
+                    if (shortestPath === undefined) {
+                        shortestPath = path;
+                    } else if (path.length < shortestPath.length) {
+                        shortestPath = path
+                    }
+                }
+
+            }
+
+            return shortestPath;
+
+        }
+    }
+
+    findShortestPath(from, to);
 }
 
-console.log(knightMoves([5,3]))
+console.log(knightMoves([5,3], [8, 2]))
+*/
