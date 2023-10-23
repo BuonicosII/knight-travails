@@ -32,8 +32,63 @@ function createBoard () {
 
 const chessBoard = createBoard();
 
-console.log(chessBoard)
+//function to output the shortest array of nodes visited by the knight to get to the destination
 
+function knightMoves(from, to) {
+
+    let predecessor = [];
+    predecessor[from] = null;
+
+    const visited = {}
+    let queue = []
+
+    visited[from] = true;
+    queue.push(from);
+
+    function returnPath (node, predecessorArray) {
+        let pathArray = []
+
+        pathArray.push(node);
+
+        let getPredecessor = predecessorArray[node];
+
+        while (getPredecessor !== null) {
+            pathArray.push(getPredecessor);
+            getPredecessor = predecessorArray[getPredecessor]
+        }
+
+        let path = pathArray.reverse();
+
+        console.log(`You made it in ${path.length - 1} moves`);
+
+        for (const move of path) {
+            console.log(move);
+        }
+
+    }
+
+    while (queue.length > 0) {
+        let node = queue.shift();
+
+        if (node[0] === to[0] && node[1] === to[1]) {
+            returnPath(node, predecessor);
+            return;
+        }
+
+        let possibleMoves = getMoves(node);
+
+        for (const move of possibleMoves) {
+            if (!visited[move]) {
+                visited[move] = true;
+                predecessor[move] = node;
+                queue.push(move);
+            }
+        }
+    }
+
+}
+
+knightMoves([0,0], [7,7])
 
 /*
 function knightMoves(from, to) {
